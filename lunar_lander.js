@@ -11,7 +11,7 @@ Needs to include:
 */
 
 
-background(160);
+background(40);
 
 const hippoColour = color(51, 0, 25);
 
@@ -129,7 +129,43 @@ function hippo(x, y) {
 }
 
 
+function theMoon(x, y) {
+    strokeWeight(1);
+    fill(150);
+    ellipse(x, y + 50, 600);
+
+    arc(x + 65, y - 30, 120, 30, 0, PI);
+    fill(130);
+    ellipse(x + 65, y - 50, 90, 30);
+    ellipse(x - 120, y - 150, 90, 30);
+    noFill();
+    arc(x - 120, y - 120, 150, 30, 0, PI);
+
+    arc(x - 220, y - 20, 50, 10, 0.7, PI);
+    arc(x - 80, y + 170, 50, 10, PI, 0.7);
+
+    ellipse(x + 150, y - 150, 10);
+    ellipse(x + 140, y - 170, 7);
+
+    ellipse(x - 160, y + 230, 10);
+    ellipse(x - 140, y + 250, 7);
+
+    noStroke();
+    fill(130);
+    ellipse(x, y, 50, 20);
+    ellipse(x + 30, y + 20, 80, 20);
+    ellipse(x - 5, y + 12, 70, 30);
+    ellipse(x + 160, y + 80, 120, 50);
+    ellipse(x + 190, y + 100, 120, 50);
+    ellipse(x - 200, y - 50, 120, 30);
+    ellipse(x - 180, y - 60, 120, 20);
+    ellipse(x + 150, y - 100, 100, 20);
+    ellipse(x - 160, y + 130, 120, 50);
+    ellipse(x - 190, y + 150, 120, 50);
+}
 
 
 
-hippo(x, y);
+hippo(x + 100, y - 40);
+
+theMoon(x + 130, y + 570);
