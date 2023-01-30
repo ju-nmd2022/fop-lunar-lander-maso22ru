@@ -129,7 +129,7 @@ function hippo(x, y) {
 }
 
 
-function theMoon(x, y) {
+function theLandingMoon(x, y) {
     strokeWeight(1);
     fill(150);
     ellipse(x, y + 50, 600);
@@ -165,7 +165,18 @@ function theMoon(x, y) {
 }
 
 
+function theMilkBar(x, y) {
+    strokeWeight(1);
+    fill(150);
+    arc(x, y , 400, 400, 0, PI);
+    fill(100);
+    ellipse(x, y, 400, 50);
 
-hippo(x + 100, y - 40);
+}
 
-theMoon(x + 130, y + 570);
+
+// hippo(x + 100, y - 40);
+
+// theLandingMoon(x + 130, y + 570);
+
+theMilkBar(x + 100, y + 300);
