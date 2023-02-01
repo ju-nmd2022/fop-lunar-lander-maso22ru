@@ -19,14 +19,17 @@ Needs to include:
 
 background(40);
 
-const hippoColour = color(51, 0, 25);
+// const hippoColour = color(51, 0, 25);
+const hippoColour = color(111, 36, 61);
+
+
 
 const signText = "MILKYWAY MILKBAR";
 
 let hS = 0.2; //hippoScale
 let mBS = 0.4; //theMilkBarScale
-let lMS = 0.5; //theLandingMoonScale
-
+let lMS = 0.4; //theLandingMoonScale
+let moonSize  = 600 * lMS; 
 
 let x = 200;
 let y = 200;
@@ -36,7 +39,7 @@ let y = 200;
 function theLandingMoon(x, y) {
     strokeWeight(1 * lMS);
     fill(150);
-    ellipse(x, y + 50 * lMS, 600 * lMS);
+    ellipse(x, y + 50 * lMS, moonSize);
 
     arc(x + 65 * lMS, y - 30 * lMS, 120 * lMS, 30 * lMS, 0, PI);
     fill(130);
@@ -72,9 +75,9 @@ function theLandingMoon(x, y) {
 function theMilkBar(x, y) {
     //planet cliff
     strokeWeight(1);
-    fill(150);
+    fill(255, 121, 184);
     arc(x, y , 400 * mBS, 400 * mBS, 0, PI);
-    fill(100);
+    fill(239, 39, 118);
     ellipse(x, y, 400 * mBS, 50 * mBS);
 
     //sign
@@ -84,16 +87,17 @@ function theMilkBar(x, y) {
     ellipse(x - 100 * mBS, y, 10 * mBS, 5 * mBS);
     rect(x - 105 * mBS, y - 80 * mBS, 10 * mBS, 80 * mBS);
     //plate
-    fill(200);
+    fill(255);
     rect(x - 195 * mBS, y - 140 * mBS, 200 * mBS, 60 * mBS);
     triangle(x - 240 * mBS, y - 110 * mBS, x - 195 * mBS, y - 140 * mBS, x - 195 * mBS, y - 80 * mBS);
 
     fill(0);
     textSize(18 * mBS);
-    text(signText, x - 180 * mBS, y - 100 * mBS);
+    text(signText, x - 180 * mBS, y - 105 * mBS);
 
 
 }
+
 
 function hippo(x, y) {
     
@@ -205,10 +209,47 @@ function hippo(x, y) {
 }
 
 
+function meteor(x, y) {
+    fill(255, 100, 50);
+    ellipse(x, y, 60);
+}
 
-theLandingMoon(x + 130, y + 170);
 
-theMilkBar(x - 90, y - 70 );
+let hippoX = 200;
+let hippoY = 200;
+let moonX = 200;
+let moonY = 200;
+let milkX = 200;
+let milkY = 200;
+let meteorX = 500;
+let meteorY = 0;
 
-hippo(x - 60, y - 143);
+let direction = 1;
+
+function draw () {
+
+    background(40);
+   
+    theLandingMoon(moonX + 30, moonY + 170);
+
+    theMilkBar(milkX - 90, milkY - 70 );
+
+    hippo(hippoX - 60, hippoY - 143);
+
+    // meteor(meteorX, meteorY);
+
+    // meteorX = meteorX - 1;
+    // meteorY = meteorY + 1;
+
+    moonX = moonX + (4 * direction);
+
+    if (moonX > width - 0.7 * moonSize) {
+        direction = -1;
+    }
+
+    if (moonX < 0 + 0.4 * moonSize) {
+        direction = 1;
+    }
+        
+}
 
