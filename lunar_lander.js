@@ -250,6 +250,13 @@ function draw () {
     if (moonX < 0 + 0.4 * moonSize) {
         direction = 1;
     }
+
+    hippoY = hippoY + 3;
+
+    if (hippoY > y + 180) {
+        hippoY = hippoY - 3;
+    }
+
         
 }
 
