@@ -22,8 +22,6 @@ background(40);
 // const hippoColour = color(51, 0, 25);
 const hippoColour = color(111, 36, 61);
 
-
-
 const signText = "MILKYWAY MILKBAR";
 
 let hS = 0.2; //hippoScale
@@ -35,6 +33,7 @@ let x = 200;
 let y = 200;
 
 
+//the diffrent objects
 
 function theLandingMoon(x, y) {
     strokeWeight(1 * lMS);
@@ -99,7 +98,11 @@ function theMilkBar(x, y) {
 }
 
 
-function hippo(x, y) {
+function hippo(x, y, rotation) {
+    push();
+    translate(x, y);
+    rotate(rotation);
+    
     
     //BODY
     fill(0);
@@ -206,14 +209,75 @@ function hippo(x, y) {
     stroke(0);
     fill(120, 80);
     ellipse(x + 30 * hS, y - 40 * hS, 220 * hS);
+    pop();
 }
 
 
 function meteor(x, y) {
     fill(255, 100, 50);
     ellipse(x, y, 60);
+    ellipse(x + 5, y + 10, 20, 10);
+    ellipse(x + 18, y - 5, 7, 3);
 }
 
+
+//The diffrent screens
+
+function buttonStartTheGame(x, y, w, h) {
+    fill(255);
+    rect(x - 10, y - 10, w + 20, h + 20, 20);
+    fill(70, 150, 40);
+    rect(x, y, w, h, 20);
+    fill(0);
+    textSize(12);
+    text("START THE GAME", x + w * 0.25 , y + h *0.55);
+
+}
+
+function startScreen() {
+    background(0);
+    fill(255);
+    textSize(15);
+    text("Help the Lactose intolerante Hippo to land on the moon!", 150 , 100);
+    text("You must land with a speed UNDER 40km/h", 150, 140);
+    text("Move the Hippo with the arrows. Up gives more gas", 150, 180);
+
+    // textSize(12);
+    // text("I have just been to the Milkyway Milkshakebar and slayed a couple gallons of strawberry milkshake.", 50, 400);
+    // text("Unfortunally I am lactose intolerante.. I feel the bubbles are starting to build up.. ", 50, 420);
+    // text("Help me get back safetly to my moon.. PLEASE!", 50, 440);
+
+    buttonStartTheGame(width * 0.3, height * 0.5, 200, 60);
+
+}
+
+function gameScreen() {
+    background(40);
+    text("game is on", 10, 10);
+
+    theLandingMoon(moonX + 30, moonY + 170);
+
+    theMilkBar(milkX - 90, milkY - 70 );
+    
+    hippo(hippoX - 130, hippoY - 170, 0);
+
+    meteor(meteorX, meteorY);
+    meteorX = meteorX - 1;
+    meteorY = meteorY + 1;
+    
+    moonX = moonX + direction;
+    if (moonX < 0 || moonX > width) {
+        direction = direction * - 1;
+    }
+
+
+
+}
+
+function resultScreen() {
+    background(255);
+    text("Resultat", 150, 200);
+}
 
 let hippoX = 200;
 let hippoY = 200;
@@ -224,39 +288,38 @@ let milkY = 200;
 let meteorX = 500;
 let meteorY = 0;
 
-let direction = 1;
+let speed = 2;
+let direction = 2;
+
+let state = "start";
+
 
 function draw () {
 
-    background(40);
-   
-    theLandingMoon(moonX + 30, moonY + 170);
+    if (mouseIsPressed && mouseX > width * 0.3 && mouseX < (width * 0.3) + 200 && mouseY > height * 0.5 && mouseY < (height * 0.5) + 60) {
 
-    theMilkBar(milkX - 90, milkY - 70 );
-
-    hippo(hippoX - 60, hippoY - 143);
-
-    // meteor(meteorX, meteorY);
-
-    // meteorX = meteorX - 1;
-    // meteorY = meteorY + 1;
-
-    moonX = moonX + (4 * direction);
-
-    if (moonX > width - 0.7 * moonSize) {
-        direction = -1;
+       state = "game";
     }
 
-    if (moonX < 0 + 0.4 * moonSize) {
-        direction = 1;
+
+    //movement of the hippo with the keys
+    if (keyIsDown(37)) {
+        hippoX = hippoX - speed;
+    } else if (keyIsDown(39)) {
+        hippoX = hippoX + speed;
+    }
+    if (keyIsDown(38)) {
+        hippoY = hippoY - speed;
+    } else if (keyIsDown(40)) {
+        hippoY = hippoY + speed;
     }
 
-    hippoY = hippoY + 3;
 
-    if (hippoY > y + 180) {
-        hippoY = hippoY - 3;
+    if (state === "start") {
+        startScreen();
+    } else if (state === "game") {
+        gameScreen();
+    } else if(state === "resulat") {
+        resultScreen();
     }
-
-        
 }
-
