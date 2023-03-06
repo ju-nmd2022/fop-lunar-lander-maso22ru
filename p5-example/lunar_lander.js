@@ -19,11 +19,10 @@ Needs to include:
 let hippoColour;
 function setup() {
     createCanvas(800, 600);
+    frameRate(30);
     background(40);
     hippoColour = color(111, 36, 61);
 }
-
-
 
 const signText = "MILKYWAY MILKBAR";
 
@@ -46,8 +45,8 @@ function theLandingMoon(x, y) {
     ellipse(x, y + 50 * lMS, moonSize);
 
     //delete later, check if moon top is moon top
-    fill(255, 0, 0);
-    ellipse(x, moonTop, 10);
+    // fill(255, 0, 0);
+    // ellipse(x, moonTop, 10);
 
     arc(x + 65 * lMS, y - 30 * lMS, 120 * lMS, 30 * lMS, 0, PI);
     fill(130);
@@ -235,6 +234,29 @@ function hippo(x, y, rotation) {
     };
 }
 
+function gas(x, y) {
+    //green bubble
+    push();
+    fill(0, 255, 0);
+    ellipse(x - 5, y + 20, 20, 15);
+    ellipse(x + 20, y + 20, 20, 15);
+    ellipse(x, y + 30, 40, 20);
+    ellipse(x + 15, y + 30, 40, 20);
+    ellipse(x + 7, y + 40, 40, 20);
+    triangle(x + 7, y + 5, x - 3, y + 22, x + 14, y + 22);
+    //small gas bubbles
+    ellipse(x - 30, y + 20, 5);
+    ellipse(x + 40, y + 40, 5);
+    ellipse(x + 45, y + 37, 3);
+    //lines
+    stroke(0);
+    strokeWeight(0.5);
+    line(x + 5, y + 12, x - 2, y + 25);
+    line(x + 7, y + 12, x +14, y + 25);
+    strokeWeight(0.5);
+    line(x + 6, y + 16, x + 6 , y + 30);
+    pop();
+}
 
 function meteor(x, y) {
     //meteor
@@ -277,35 +299,44 @@ function startScreen() {
 }
 
 function gameScreen() {
+
     background(40);
+
+    //counter for the speed, velocity km/h
     textSize(12);
     const kmh = Math.floor(velocity + speed) * 10;
-    //hastighets räknare
-    text("velocity: " + kmh + " km/h", 20, 20);  
-
-    let moonPosition = theLandingMoon(moonX, moonY);
-
-    theMilkBar(milkX, milkY);
+    text("velocity: " + kmh + " km/h", 20, 20);
     
-    let footPosition = hippo(hippoX, hippoY, 0);
+    //starting position
+    theMilkBar(milkX, milkY);
 
+    //a moving meteor (just for decoration right now)
     meteor(meteorX, meteorY);
     meteorX = meteorX - 1;
     meteorY = meteorY + 1;
-    
+
+
+    //the moon that moves, try to land on it
+    let moonPosition = theLandingMoon(moonX, moonY);
+
+    //moves from the left side to the right side
     moonX = moonX + direction;
     if (moonX < 0 || moonX > width) {
         direction = direction * - 1; 
     }
 
+
+    //the hippo that you can move
+    let footPosition = hippo(hippoX, hippoY, 0);
+
+    //movement for the hippo
     hippoY = hippoY + velocity;
     velocity = velocity + acceleration;
 
+    //When the hippo and moon collides
+    //help from a friend, Johan Carlsson to explain
     if ((footPosition.leftFoot.y + 10 > moonPosition.y && footPosition.leftFoot.y - 10 < moonPosition.y) && 
-    (footPosition.leftFoot.x + 10 >  moonPosition.x && footPosition.leftFoot.x - 10 < moonPosition.x)) { 
-        console.log("velocity" + velocity);
-        console.log("moon:" + moonPosition.x + "," + moonPosition.y);
-        console.log("foot:" + footPosition.leftFoot.x + "," + footPosition.leftFoot.y); 
+    (footPosition.leftFoot.x + 10 >  moonPosition.x && footPosition.leftFoot.x - 10 < moonPosition.x)) {  
         velocity = 0;   
         speed = 0;
         acceleration = 0;  
@@ -321,6 +352,12 @@ function gameScreen() {
 
     }
 
+    //you will also loose when you go outside the screen
+    if (footPosition.leftFoot.y - 100 > height) {
+        win = false;
+        state = "result"; 
+    }
+
     
     //movement of the hippo with the keys
     if (keyIsDown(37)) {
@@ -331,21 +368,39 @@ function gameScreen() {
     if (keyIsDown(38)) {
         velocity = 0;
         hippoY = hippoY - speed; 
+        gas(footPosition.leftFoot.x, footPosition.leftFoot.y);
     }
-    //  else if (keyIsDown(40)) {
-    //     hippoY = hippoY + speed;
-    //     velocity = velocity - 0.8;
-    // }
-
+    
 }
 
 function resultScreen() {
     background(255);
-    text(win ? "You won!" : "You lost!", 150, 200);
+    textSize(14);
+    if (win) {
+        text("You won!", 150, 200);
+    } else {
+        text("You lost!", 150, 200);
+    }
+
+    text("Press spacebar to restart", 150, 400);
+
+    if (keyIsDown(32)) {
+        speed = 2;
+        direction = -1;
+
+        velocity = 0.6;
+        acceleration = 0.2;
+
+        hippoX = 70; 
+        hippoY = 30;
+
+        state = "game";
+    }
+
 }
 
-let hippoX = 70; 
-let hippoY = 30;
+let hippoX = 140; 
+let hippoY = 60;
 let moonX = 200;
 let moonY = 370;
 let milkX = 110;
@@ -359,13 +414,14 @@ let direction = -1;
 let velocity = 0.6;
 let acceleration = 0.2;
 
-let state = "start";
+let state = "game";
 
 let win = false;
 
 
 function draw () {
 
+    //detects where the startbutton is with the mouse, to press start and enter game state
     if (mouseIsPressed && mouseX > width * 0.3 && mouseX < (width * 0.3) + 200 && mouseY > height * 0.5 && mouseY < (height * 0.5) + 60) {
 
        state = "game";
@@ -373,7 +429,7 @@ function draw () {
 
 
 
-
+    //the diffrent screens
     if (state === "start") {
         startScreen();
     } else if (state === "game") {
