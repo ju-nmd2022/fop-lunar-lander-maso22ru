@@ -41,7 +41,13 @@ let y = 200;
 function theLandingMoon(x, y) {
     strokeWeight(1 * lMS);
     fill(150);
+
+    let moonTop = y + (50 * lMS) - (moonSize * 0.5);
     ellipse(x, y + 50 * lMS, moonSize);
+
+    //delete later, check if moon top is moon top
+    fill(255, 0, 0);
+    ellipse(x, moonTop, 10);
 
     arc(x + 65 * lMS, y - 30 * lMS, 120 * lMS, 30 * lMS, 0, PI);
     fill(130);
@@ -71,6 +77,11 @@ function theLandingMoon(x, y) {
     ellipse(x + 150 * lMS, y - 100 * lMS, 100 * lMS, 20 * lMS);
     ellipse(x - 160 * lMS, y + 130 * lMS, 120 * lMS, 50 * lMS);
     ellipse(x - 190 * lMS, y + 150 * lMS, 120 * lMS, 50 * lMS);
+
+    return {
+        x: x,
+        y: moonTop
+    };
 }
 
 
@@ -103,7 +114,7 @@ function theMilkBar(x, y) {
 
 function hippo(x, y, rotation) {
     push();
-    translate(x, y);
+    
     rotate(rotation);
     
     
@@ -156,7 +167,9 @@ function hippo(x, y, rotation) {
     endShape();
 
     fill(0);
-    ellipse(x - 5 * hS, y + 351 * hS, 30 * hS, 3 * hS);
+    let leftFootX = x - 5 * hS;
+    let leftFootY = y + 351 * hS;
+    ellipse(leftFootX, leftFootY, 30 * hS, 3 * hS);
     ellipse(x + 65 * hS, y + 351 * hS, 30 * hS, 3 * hS);
     //ears
     fill(hippoColour);
@@ -213,6 +226,13 @@ function hippo(x, y, rotation) {
     fill(120, 80);
     ellipse(x + 30 * hS, y - 40 * hS, 220 * hS);
     pop();
+
+    return {
+        leftFoot: {
+            x: leftFootX,
+            y: leftFootY
+        }
+    };
 }
 
 
@@ -258,13 +278,16 @@ function startScreen() {
 
 function gameScreen() {
     background(40);
-    text("game is on", 10, 10);
+    textSize(12);
+    const kmh = Math.floor(velocity + speed) * 10;
+    //hastighets räknare
+    text("velocity: " + kmh + " km/h", 20, 20);  
 
-    theLandingMoon(moonX + 30, moonY + 170);
+    let moonPosition = theLandingMoon(moonX, moonY);
 
-    theMilkBar(milkX - 90, milkY - 70 );
+    theMilkBar(milkX, milkY);
     
-    hippo(hippoX - 130, hippoY - 170, 0);
+    let footPosition = hippo(hippoX, hippoY, 0);
 
     meteor(meteorX, meteorY);
     meteorX = meteorX - 1;
@@ -272,11 +295,31 @@ function gameScreen() {
     
     moonX = moonX + direction;
     if (moonX < 0 || moonX > width) {
-        direction = direction * - 1;
+        direction = direction * - 1; 
     }
 
     hippoY = hippoY + velocity;
     velocity = velocity + acceleration;
+
+    if ((footPosition.leftFoot.y + 10 > moonPosition.y && footPosition.leftFoot.y - 10 < moonPosition.y) && 
+    (footPosition.leftFoot.x + 10 >  moonPosition.x && footPosition.leftFoot.x - 10 < moonPosition.x)) { 
+        console.log("velocity" + velocity);
+        console.log("moon:" + moonPosition.x + "," + moonPosition.y);
+        console.log("foot:" + footPosition.leftFoot.x + "," + footPosition.leftFoot.y); 
+        velocity = 0;   
+        speed = 0;
+        acceleration = 0;  
+        direction = 0;
+
+        if (kmh > 40) {
+            win = false;
+        } else {
+            win = true;
+        }
+        
+        state = "result"; 
+
+    }
 
     
     //movement of the hippo with the keys
@@ -286,35 +329,39 @@ function gameScreen() {
         hippoX = hippoX + speed;
     }
     if (keyIsDown(38)) {
-        hippoY = hippoY - speed;
-    } else if (keyIsDown(40)) {
-        hippoY = hippoY + speed;
-        velocity = velocity - 0.8;
+        velocity = 0;
+        hippoY = hippoY - speed; 
     }
+    //  else if (keyIsDown(40)) {
+    //     hippoY = hippoY + speed;
+    //     velocity = velocity - 0.8;
+    // }
 
 }
 
 function resultScreen() {
     background(255);
-    text("Resultat", 150, 200);
+    text(win ? "You won!" : "You lost!", 150, 200);
 }
 
-let hippoX = 200;
-let hippoY = 200;
+let hippoX = 70; 
+let hippoY = 30;
 let moonX = 200;
-let moonY = 200;
-let milkX = 200;
-let milkY = 200;
+let moonY = 370;
+let milkX = 110;
+let milkY = 130;
 let meteorX = 500;
 let meteorY = 0;
 
 let speed = 2;
-let direction = 1;
+let direction = -1;
 
 let velocity = 0.6;
-let acceleration = 0;
+let acceleration = 0.2;
 
-let state = "game";
+let state = "start";
+
+let win = false;
 
 
 function draw () {
@@ -331,7 +378,7 @@ function draw () {
         startScreen();
     } else if (state === "game") {
         gameScreen();
-    } else if(state === "resulat") {
+    } else if(state === "result") {
         resultScreen();
     }
 }
