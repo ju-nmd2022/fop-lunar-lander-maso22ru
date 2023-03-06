@@ -16,11 +16,14 @@ Needs to include:
 
 */
 
+let hippoColour;
+function setup() {
+    createCanvas(800, 600);
+    background(40);
+    hippoColour = color(111, 36, 61);
+}
 
-background(40);
 
-// const hippoColour = color(51, 0, 25);
-const hippoColour = color(111, 36, 61);
 
 const signText = "MILKYWAY MILKBAR";
 
@@ -214,7 +217,9 @@ function hippo(x, y, rotation) {
 
 
 function meteor(x, y) {
-    fill(255, 100, 50);
+    //meteor
+    fill(195, 152, 152);
+    stroke(0);
     ellipse(x, y, 60);
     ellipse(x + 5, y + 10, 20, 10);
     ellipse(x + 18, y - 5, 7, 3);
@@ -270,7 +275,22 @@ function gameScreen() {
         direction = direction * - 1;
     }
 
+    hippoY = hippoY + velocity;
+    velocity = velocity + acceleration;
 
+    
+    //movement of the hippo with the keys
+    if (keyIsDown(37)) {
+        hippoX = hippoX - speed;
+    } else if (keyIsDown(39)) {
+        hippoX = hippoX + speed;
+    }
+    if (keyIsDown(38)) {
+        hippoY = hippoY - speed;
+    } else if (keyIsDown(40)) {
+        hippoY = hippoY + speed;
+        velocity = velocity - 0.8;
+    }
 
 }
 
@@ -289,9 +309,12 @@ let meteorX = 500;
 let meteorY = 0;
 
 let speed = 2;
-let direction = 2;
+let direction = 1;
 
-let state = "start";
+let velocity = 0.6;
+let acceleration = 0;
+
+let state = "game";
 
 
 function draw () {
@@ -302,17 +325,6 @@ function draw () {
     }
 
 
-    //movement of the hippo with the keys
-    if (keyIsDown(37)) {
-        hippoX = hippoX - speed;
-    } else if (keyIsDown(39)) {
-        hippoX = hippoX + speed;
-    }
-    if (keyIsDown(38)) {
-        hippoY = hippoY - speed;
-    } else if (keyIsDown(40)) {
-        hippoY = hippoY + speed;
-    }
 
 
     if (state === "start") {
