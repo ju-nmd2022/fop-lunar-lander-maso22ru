@@ -23,6 +23,16 @@ function setup() {
     frameRate(30);
     background(40);
     hippoColour = color(111, 36, 61);
+
+    for (let i = 0; i < 50; i++) {
+        const x = Math.floor(Math.random() * width);
+        const y = Math.floor(Math.random() * height);
+        const alpha = Math.random();
+    
+        starX.push(x);
+        starY.push(y);
+        starAlpha.push(alpha);
+    }
 }
 
 const signText = "MILKYWAY MILKBAR";
@@ -576,15 +586,7 @@ let starAlpha = [];
 
 
 
-for (let i = 0; i < 50; i++) {
-    const x = Math.floor(Math.random() * width);
-    const y = Math.floor(Math.random() * height);
-    const alpha = Math.random();
 
-    starX.push(x);
-    starY.push(y);
-    starAlpha.push(alpha);
-}
 
 function starNight () {
     
