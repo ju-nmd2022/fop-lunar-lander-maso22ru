@@ -17,6 +17,7 @@ Needs to include:
 */
 
 let hippoColour;
+
 function setup() {
     createCanvas(800, 600);
     frameRate(30);
@@ -111,11 +112,8 @@ function theMilkBar(x, y) {
 }
 
 
-function hippo(x, y, rotation) {
+function hippo(x, y) {
     push();
-    
-    rotate(rotation);
-    
     
     //BODY
     fill(0);
@@ -570,8 +568,33 @@ function meteor(x, y) {
     ellipse(x + 18, y - 5, 7, 3);
 }
 
+// stars on the nightsky
+//video "create a night sky" from foundations of Programming JU
+let starX = [];
+let starY = [];
+let starAlpha = [];
 
-//The diffrent screens
+
+
+for (let i = 0; i < 50; i++) {
+    const x = Math.floor(Math.random() * width);
+    const y = Math.floor(Math.random() * height);
+    const alpha = Math.random();
+
+    starX.push(x);
+    starY.push(y);
+    starAlpha.push(alpha);
+}
+
+function starNight () {
+    
+for (let index in starX) {
+    noStroke();
+    fill(255, 255, 255, starAlpha[index] * 255);
+    ellipse(starX[index], starY[index], 2);
+}
+
+}
 
 function buttonStartTheGame(x, y, w, h) {
     fill(255);
@@ -584,6 +607,7 @@ function buttonStartTheGame(x, y, w, h) {
 
 }
 
+//The diffrent screens
 function startScreen() {
     background(0);
     fill(255);
@@ -607,10 +631,14 @@ function startScreen() {
 }
 
 function gameScreen() {
-    background(40);
 
+    background(40);
+    //stars on the background
+    starNight();
+
+     
     //timer
-    textSize(12);
+    textSize(14);
     frame = frame + 1;
     text("Time: " + Math.floor(frame / 30) + "s", 20, 40);
 
@@ -738,7 +766,7 @@ let meteorY = 0;
 let frame = 0;
 
 let speed = 2;
-let direction = -4;
+let direction = 4;
 
 let velocity = 0.6;
 let acceleration = 0.2;
@@ -749,6 +777,7 @@ let win = false;
 
 
 function draw () {
+    
 
     //detects where the startbutton is with the mouse, to press start and enter game state
     if (mouseIsPressed && mouseX > width * 0.3 && mouseX < (width * 0.3) + 200 && mouseY > height * 0.5 && mouseY < (height * 0.5) + 60) {
