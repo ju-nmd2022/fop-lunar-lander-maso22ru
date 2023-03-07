@@ -607,11 +607,14 @@ function startScreen() {
 }
 
 function gameScreen() {
-
     background(40);
 
-    //counter for the speed, velocity km/h
+    //timer
     textSize(12);
+    frame = frame + 1;
+    text("Time: " + Math.floor(frame / 30) + "s", 20, 40);
+
+    //counter for the speed, velocity km/h
     const kmh = Math.floor(velocity + speed) * 10;
     text("velocity: " + kmh + " km/h", 20, 20);
     
@@ -683,22 +686,24 @@ function gameScreen() {
 
 function resultScreen() {
     background(0);
-
-    textSize(14);
-    fill(255);
-    text("PRESS SPACEBAR TO RESTART", 150, 230);
-
    
     textSize(25);
     if (win) {
         fill(0, 255, 0);
-        text("YOU WON!", 150, 200);
+        text("YOU WON!", 150, 160);
+        fill(255);
+        text("Time: " + Math.floor(frame / 30) + "sek", 150, 200);
         hippoHappy(450, 200);
+        
     } else {
         fill(255, 0, 0);
         text("YOU LOST!", 150, 200);
         hippoBroken(450, 200);
     }
+
+    textSize(14);
+    fill(255);
+    text("PRESS SPACEBAR TO RESTART", 150, 230);
 
 
     //spacebar to start game again
@@ -712,10 +717,14 @@ function resultScreen() {
         hippoX = 70; 
         hippoY = 30;
 
+        frame = 0;
+
         state = "game";
     }
 
 }
+
+
 
 let hippoX = 140; 
 let hippoY = 60;
@@ -725,6 +734,8 @@ let milkX = 110;
 let milkY = 130;
 let meteorX = 500;
 let meteorY = 0;
+
+let frame = 0;
 
 let speed = 2;
 let direction = -4;
