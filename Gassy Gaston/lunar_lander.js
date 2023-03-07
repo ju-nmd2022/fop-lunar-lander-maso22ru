@@ -11,7 +11,7 @@ Needs to include:
 
 
 "The lactoseintolerant hippo, "Gassy Gaston", have just left the
- "Milkyway MilkBar" and needs your help to get home safely. 
+ "Milkyway MilkshakeBar" and needs your help to get home safely. 
  Help him to land smooth and easy on his own moon"
 
 */
@@ -234,6 +234,309 @@ function hippo(x, y, rotation) {
     };
 }
 
+function hippoBroken(x, y) {
+    push();
+
+    let hS = 1; //hippoScale
+
+   
+
+    //BODY
+    fill(0);
+    ellipse(x + 30 * hS, y + 200 * hS, 255 * hS);
+    beginShape();
+    vertex(x + 30 * hS, y - 30 * hS);
+    bezierVertex(x - 200 * hS, y + 300 * hS, x + 260 * hS, y + 300 * hS, x + 30 * hS, y - 30 * hS);
+    endShape();
+    noStroke();
+    fill(hippoColour);
+    ellipse(x + 30 * hS, y + 200 * hS, 250 * hS);
+    beginShape();
+    vertex(x + 30 * hS, y - 30 * hS);
+    bezierVertex(x - 200 * hS, y + 300 * hS, x + 260 * hS, y + 300 * hS, x + 30 * hS, y - 30 * hS);
+    endShape();
+
+    fill(0);
+    ellipse(x - 10 * hS, y + 110 * hS, 5 * hS);
+    ellipse(x + 60 * hS, y + 110 * hS, 5 * hS);
+    //arms
+    stroke(0);
+    strokeWeight(2 * hS);
+    fill(hippoColour);
+    beginShape();
+    vertex(x + 70 * hS, y + 50 * hS);
+    vertex(x + 180 * hS, y + 50 * hS);
+    bezierVertex(x + 200 * hS, y + 50 * hS,  x + 210 * hS, y + 100 * hS, x + 70 * hS, y + 85 * hS);
+    endShape();
+
+    beginShape();
+    vertex(x - 10 * hS, y + 50 * hS);
+    vertex(x - 120 * hS, y + 50 * hS);
+    bezierVertex(x - 140 * hS, y + 50 * hS,  x - 150 * hS, y + 100 * hS, x - 10 * hS, y + 85 * hS);
+    endShape();
+
+    //broken arm
+    push();
+    noStroke();
+    fill(255);
+    rect(x + 90 * hS, y + 43 * hS, 120 * hS, 50 * hS, 20 * hS);
+    rect(x + 160 * hS, y, 50 * hS, 90 * hS, 20 * hS);
+    pop();
+
+    //legs
+    //broken leg
+    push();
+    fill(255);
+    noStroke();
+    beginShape();
+    vertex(x - 70 * hS, y + 270 * hS);
+    vertex(x - 20 * hS, y + 350 * hS);
+    vertex(x + 10 * hS, y + 350 * hS);
+    vertex(x + 20 * hS, y + 300 * hS);
+    endShape();
+
+    rect(x - 75 * hS, y + 330 * hS, 90 * hS, 45 * hS, 20 * hS);
+
+    pop();
+
+    beginShape();
+    vertex(x + 130 * hS, y + 270 * hS);
+    vertex(x + 80 * hS, y + 350 * hS);
+    vertex(x + 50 * hS, y + 350 * hS);
+    vertex(x + 40 * hS, y + 300 * hS);
+    endShape();
+
+    fill(0);
+    // let leftFootX = x - 5 * hS;
+    // let leftFootY = y + 351 * hS;
+    // ellipse(leftFootX, leftFootY, 30 * hS, 3 * hS);
+    ellipse(x + 65 * hS, y + 351 * hS, 30 * hS, 3 * hS);
+    //ears
+    fill(hippoColour);
+    beginShape();
+    vertex(x, y - 80 * hS);
+    vertex(x - 10 * hS, y - 90 * hS);
+    bezierVertex(x - 20 * hS, y - 100 * hS, x - 30 * hS, y - 110 * hS, x - 20 * hS, y - 120 * hS);
+    vertex(x - 20 * hS, y - 120 * hS);
+    bezierVertex(x - 10 * hS, y - 120 * hS, x + 10 * hS, y - 110 * hS, x, y - 90 * hS);
+    endShape();
+
+    beginShape();
+    vertex(x + 60 * hS, y - 80 * hS);
+    vertex(x + 50 * hS, y - 90 * hS);
+    bezierVertex(x + 60 * hS, y - 100 * hS, x + 50 * hS, y - 110 * hS, x + 60 * hS, y - 120 * hS);
+    vertex(x + 60 * hS, y - 120 * hS);
+    bezierVertex(x + 70 * hS, y - 120 * hS, x + 90 * hS, y - 110 * hS, x + 60 * hS, y - 90 * hS);
+    endShape();
+    //head
+    fill(hippoColour);
+    ellipse(x + 30 * hS, y - 60 * hS, 100 * hS, 80 * hS);
+    //nose
+    noStroke();
+    fill(0);
+    ellipse(x, y, 105 * hS);
+    ellipse(x + 60 * hS, y, 105 * hS);
+    ellipse(x + 60 * hS, y - 42 * hS, 30 * hS, 35 * hS);
+    ellipse(x, y - 42 * hS, 30 * hS, 35 * hS);
+    fill(hippoColour);
+    ellipse(x, y, 100 * hS);
+    ellipse(x + 60 * hS, y, 100 * hS);
+    ellipse(x + 60 * hS, y - 42 * hS, 25 * hS, 30 * hS);
+    ellipse(x, y - 42 * hS, 25 * hS, 30 * hS);
+    fill(0);
+    ellipse(x + 60 * hS, y - 44 * hS, 10 * hS, 17 * hS);
+    ellipse(x, y - 44 * hS, 10 * hS, 17 * hS);
+    // whiskers
+    ellipse(x - 20 * hS, y - 5 * hS, 4 * hS);
+    ellipse(x - 32 * hS, y, 4 * hS);
+    ellipse(x - 25 * hS, y + 10 * hS, 4 * hS);
+    ellipse(x + 80 * hS, y - 5 * hS, 4 * hS);
+    ellipse(x + 92 * hS, y, 4 * hS);
+    ellipse(x + 85 * hS, y + 10 * hS, 4 * hS);
+    //eyes
+    fill(255);
+    ellipse(x + 15 * hS, y - 75 * hS, 15 * hS, 25 * hS);
+    ellipse(x + 45 * hS, y - 75 * hS, 15 * hS, 25 * hS);
+    fill(0);
+    ellipse(x + 15 * hS, y - 75 * hS, 10 * hS);
+    ellipse(x + 45 * hS, y - 75 * hS, 10 * hS);
+    //sad eyelids
+    fill(hippoColour);
+    ellipse(x + 15 * hS, y - 83 * hS, 20 * hS, 10 * hS);
+    stroke(0);
+    line(x + 23 * hS, y - 83 * hS, x + 7 * hS , y - 90 * hS);
+    line(x + 38 * hS, y - 83 * hS, x + 52 * hS, y - 90 * hS);
+
+    //astronaut hat
+    stroke(0);
+    fill(120, 80);
+    ellipse(x + 30 * hS, y - 40 * hS, 220 * hS);
+    //broken glass
+    noFill();
+    stroke(240);
+    beginShape();
+    vertex(x - 60 * hS, y - 100 * hS);
+    vertex(x - 45 * hS, y - 70 * hS);
+    vertex(x - 69 * hS, y - 60 * hS);
+    vertex(x - 35 * hS, y - 50 * hS);
+    vertex(x - 35 * hS, y - 40 * hS);
+    endShape();
+    line(x - 45 * hS, y - 70 * hS, x - 35 * hS, y - 90 * hS);
+    line(x - 35 * hS, y - 90 * hS, x - 25 * hS, y - 90 * hS);
+    
+     //krycka
+     push();
+     noStroke();
+     fill(141, 89, 20);
+     rect(x + 155 * hS, y + 105 * hS, 15 * hS, 270 * hS, 10);
+     noFill();
+     stroke(141, 89, 20);
+     strokeWeight(17 * hS);
+     ellipse(x + 162 * hS, y + 80 * hS, 50 * hS, 60 * hS);
+     fill(255);
+     noStroke();
+     rect(x + 161 * hS, y + 32 * hS, 40 * hS, 60 * hS, 5);
+     rect(x + 121 * hS, y + 44 * hS, 50 * hS, 30 * hS, 5);
+     pop();
+
+    pop();
+
+}
+
+function hippoHappy(x, y) {
+    push();
+
+    let hS = 1; //hippoScale
+
+    //BODY
+    fill(0);
+    ellipse(x + 30 * hS, y + 200 * hS, 255 * hS);
+    beginShape();
+    vertex(x + 30 * hS, y - 30 * hS);
+    bezierVertex(x - 200 * hS, y + 300 * hS, x + 260 * hS, y + 300 * hS, x + 30 * hS, y - 30 * hS);
+    endShape();
+    noStroke();
+    fill(hippoColour);
+    ellipse(x + 30 * hS, y + 200 * hS, 250 * hS);
+    beginShape();
+    vertex(x + 30 * hS, y - 30 * hS);
+    bezierVertex(x - 200 * hS, y + 300 * hS, x + 260 * hS, y + 300 * hS, x + 30 * hS, y - 30 * hS);
+    endShape();
+
+    fill(0);
+    ellipse(x - 10 * hS, y + 110 * hS, 5 * hS);
+    ellipse(x + 60 * hS, y + 110 * hS, 5 * hS);
+    //arms
+    stroke(0);
+    strokeWeight(2 * hS);
+    fill(hippoColour);
+    beginShape();
+    vertex(x + 70 * hS, y + 50 * hS);
+    vertex(x + 180 * hS, y + 50 * hS);
+    bezierVertex(x + 200 * hS, y + 50 * hS,  x + 210 * hS, y + 100 * hS, x + 70 * hS, y + 85 * hS);
+    endShape();
+
+    beginShape();
+    vertex(x - 10 * hS, y + 50 * hS);
+    vertex(x - 120 * hS, y + 50 * hS);
+    bezierVertex(x - 140 * hS, y + 50 * hS,  x - 150 * hS, y + 100 * hS, x - 10 * hS, y + 85 * hS);
+    endShape();
+    //legs
+    beginShape();
+    vertex(x - 70 * hS, y + 270 * hS);
+    vertex(x - 20 * hS, y + 350 * hS);
+    vertex(x + 10 * hS, y + 350 * hS);
+    vertex(x + 20 * hS, y + 300 * hS);
+    endShape();
+
+    beginShape();
+    vertex(x + 130 * hS, y + 270 * hS);
+    vertex(x + 80 * hS, y + 350 * hS);
+    vertex(x + 50 * hS, y + 350 * hS);
+    vertex(x + 40 * hS, y + 300 * hS);
+    endShape();
+
+    fill(0);
+    let leftFootX = x - 5 * hS;
+    let leftFootY = y + 351 * hS;
+    ellipse(leftFootX, leftFootY, 30 * hS, 3 * hS);
+    ellipse(x + 65 * hS, y + 351 * hS, 30 * hS, 3 * hS);
+    //ears
+    fill(hippoColour);
+    beginShape();
+    vertex(x, y - 80 * hS);
+    vertex(x - 10 * hS, y - 90 * hS);
+    bezierVertex(x - 20 * hS, y - 100 * hS, x - 30 * hS, y - 110 * hS, x - 20 * hS, y - 120 * hS);
+    vertex(x - 20 * hS, y - 120 * hS);
+    bezierVertex(x - 10 * hS, y - 120 * hS, x + 10 * hS, y - 110 * hS, x, y - 90 * hS);
+    endShape();
+
+    beginShape();
+    vertex(x + 60 * hS, y - 80 * hS);
+    vertex(x + 50 * hS, y - 90 * hS);
+    bezierVertex(x + 60 * hS, y - 100 * hS, x + 50 * hS, y - 110 * hS, x + 60 * hS, y - 120 * hS);
+    vertex(x + 60 * hS, y - 120 * hS);
+    bezierVertex(x + 70 * hS, y - 120 * hS, x + 90 * hS, y - 110 * hS, x + 60 * hS, y - 90 * hS);
+    endShape();
+    //head
+    fill(hippoColour);
+    ellipse(x + 30 * hS, y - 60 * hS, 100 * hS, 80 * hS);
+    //nose
+    noStroke();
+    fill(0);
+    ellipse(x, y, 105 * hS);
+    ellipse(x + 60 * hS, y, 105 * hS);
+    ellipse(x + 60 * hS, y - 42 * hS, 30 * hS, 35 * hS);
+    ellipse(x, y - 42 * hS, 30 * hS, 35 * hS);
+    fill(hippoColour);
+    ellipse(x, y, 100 * hS);
+    ellipse(x + 60 * hS, y, 100 * hS);
+    ellipse(x + 60 * hS, y - 42 * hS, 25 * hS, 30 * hS);
+    ellipse(x, y - 42 * hS, 25 * hS, 30 * hS);
+    fill(0);
+    ellipse(x + 60 * hS, y - 44 * hS, 10 * hS, 17 * hS);
+    ellipse(x, y - 44 * hS, 10 * hS, 17 * hS);
+    // whiskers
+    ellipse(x - 20 * hS, y - 5 * hS, 4 * hS);
+    ellipse(x - 32 * hS, y, 4 * hS);
+    ellipse(x - 25 * hS, y + 10 * hS, 4 * hS);
+    ellipse(x + 80 * hS, y - 5 * hS, 4 * hS);
+    ellipse(x + 92 * hS, y, 4 * hS);
+    ellipse(x + 85 * hS, y + 10 * hS, 4 * hS);
+    //eyes
+    fill(255);
+    ellipse(x + 15 * hS, y - 75 * hS, 15 * hS, 25 * hS);
+    ellipse(x + 45 * hS, y - 75 * hS, 15 * hS, 25 * hS);
+    fill(0);
+    ellipse(x + 15 * hS, y - 75 * hS, 10 * hS);
+    ellipse(x + 45 * hS, y - 75 * hS, 10 * hS);
+
+    //astronaut hat
+    stroke(0);
+    fill(120, 80);
+    ellipse(x + 30 * hS, y - 40 * hS, 220 * hS);
+
+    //partyhat
+    noStroke();
+    fill(0, 230, 50);
+    triangle(x + 130 * hS, y - 80 * hS, x + 70 * hS, y - 140 * hS, x + 190 * hS, y - 170 * hS);
+    fill(255);
+    ellipse(x + 140 * hS, y - 120 * hS, 20 * hS);
+    ellipse(x + 115 * hS, y - 130 * hS, 10 * hS);
+    ellipse(x + 155 * hS, y - 140 * hS, 10 * hS);
+    fill(255, 150, 200);
+    ellipse(x + 130 * hS, y - 120 * hS, 10 * hS);
+    ellipse(x + 135 * hS, y - 140 * hS, 20 * hS);
+    ellipse(x + 170 * hS, y - 155 * hS, 10 * hS);
+    fill(150, 150, 200);
+    ellipse(x + 110 * hS, y - 115 * hS, 15 * hS);
+    ellipse(x + 100 * hS, y - 140 * hS, 10 * hS);
+    fill(250, 250, 40);
+    ellipse(x + 130 * hS, y - 97 * hS, 10 * hS);
+    ellipse(x + 150 * hS, y - 150 * hS, 10 * hS);
+    pop();
+}
+
 function gas(x, y) {
     //green bubble
     push();
@@ -286,8 +589,12 @@ function startScreen() {
     fill(255);
     textSize(15);
     text("Help the Lactose intolerante Hippo to land on the moon!", 150 , 100);
+    textSize(19);
     text("You must land with a speed UNDER 40km/h", 150, 140);
+    textSize(16);
     text("Move the Hippo with the arrows. Up gives more gas", 150, 180);
+
+
 
     // textSize(12);
     // text("I have just been to the Milkyway Milkshakebar and slayed a couple gallons of strawberry milkshake.", 50, 400);
@@ -295,6 +602,7 @@ function startScreen() {
     // text("Help me get back safetly to my moon.. PLEASE!", 50, 440);
 
     buttonStartTheGame(width * 0.3, height * 0.5, 200, 60);
+
 
 }
 
@@ -374,16 +682,26 @@ function gameScreen() {
 }
 
 function resultScreen() {
-    background(255);
+    background(0);
+
     textSize(14);
+    fill(255);
+    text("PRESS SPACEBAR TO RESTART", 150, 230);
+
+   
+    textSize(25);
     if (win) {
-        text("You won!", 150, 200);
+        fill(0, 255, 0);
+        text("YOU WON!", 150, 200);
+        hippoHappy(450, 200);
     } else {
-        text("You lost!", 150, 200);
+        fill(255, 0, 0);
+        text("YOU LOST!", 150, 200);
+        hippoBroken(450, 200);
     }
 
-    text("Press spacebar to restart", 150, 400);
 
+    //spacebar to start game again
     if (keyIsDown(32)) {
         speed = 2;
         direction = -1;
@@ -409,12 +727,12 @@ let meteorX = 500;
 let meteorY = 0;
 
 let speed = 2;
-let direction = -1;
+let direction = -4;
 
 let velocity = 0.6;
 let acceleration = 0.2;
 
-let state = "game";
+let state = "start";
 
 let win = false;
 
