@@ -622,7 +622,7 @@ function prologScreen() {
     background(40);
     //stars on the background
     starNight();
-    
+
     fill(200);
     textSize(15);
     text("Press SPACEBAR to continue to the start", 65, 50);
@@ -659,12 +659,14 @@ function prologScreen() {
 function startScreen() {
     background(0);
     fill(255);
-    textSize(15);
-    text("Help the Lactose intolerante Hippo to land on the moon!", 150 , 100);
+    textSize(21);
+    text("Help Gassy Gaston to land on the moon!", 150 , 100);
     textSize(19);
     text("You must land with a speed UNDER 40km/h", 150, 140);
-    textSize(16);
-    text("Move the Hippo with the arrows. Up gives more gas", 150, 180);
+    textSize(20);
+    text("Move the Hippo with the arrows.< ^ >", 150, 180);
+    textSize(20);
+    text("Up gives more gas ^ ", 150, 220);
 
     buttonStartTheGame(width * 0.3, height * 0.5, 200, 60);
 
