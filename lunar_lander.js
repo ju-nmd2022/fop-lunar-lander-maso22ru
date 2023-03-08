@@ -1,6 +1,6 @@
 /* 
 Lunar lander game, made for the course "foundation of programming" at JU.
-
+prolog"
 "The lactoseintolerant hippo, "Gassy Gaston", have just left the
  "Milkyway MilkshakeBar" and needs your help to get home safely. 
  Help him to land smooth and easy on his own moon"
@@ -53,7 +53,7 @@ let direction = 4;
 let velocity = 0.6;
 let acceleration = 0.2;
 
-let state = "start";
+let state = "prolog";
 
 let win = false;
 
@@ -135,7 +135,6 @@ function theMilkBar(x, y) {
 
 function hippo(x, y) {
     push();
-    
     //BODY
     fill(0);
     ellipse(x + 30 * hS, y + 200 * hS, 255 * hS);
@@ -618,6 +617,45 @@ function buttonStartTheGame(x, y, w, h) {
 }
 
 //The diffrent screens
+function prologScreen() {
+
+    background(40);
+    //stars on the background
+    starNight();
+    
+    fill(200);
+    textSize(15);
+    text("Press SPACEBAR to continue to the start", 65, 50);
+
+    //text bubble
+    fill(255);
+    noStroke();
+    rect(50, 100, 330, 140, 40);
+    triangle(280, 240, 360, 300, 340, 240);
+
+    //talking text
+    fill(0);
+    textSize(12.5);
+    text("I have just been to the Milkyway Milkbar and slayed", 70, 130);
+    text("a couple gallons strawberry milkshake. Unfortunally", 70, 150);
+    text("I am lactose intolerante..", 70, 170);
+    text("I feel the bubbles are starting to build up.. ", 70, 190);
+    text("Help me get back safetly to my moon.. PLEASE!", 70, 210);
+
+    push();
+    hS = 0.6;
+    hippo(450, 370);
+    pop();
+
+
+    //push spacebar to go to next screen, the startscreen
+    if (keyIsDown(32)) {
+
+        state = "start";
+    }
+
+}
+
 function startScreen() {
     background(0);
     fill(255);
@@ -628,15 +666,7 @@ function startScreen() {
     textSize(16);
     text("Move the Hippo with the arrows. Up gives more gas", 150, 180);
 
-
-
-    // textSize(12);
-    // text("I have just been to the Milkyway Milkshakebar and slayed a couple gallons of strawberry milkshake.", 50, 400);
-    // text("Unfortunally I am lactose intolerante.. I feel the bubbles are starting to build up.. ", 50, 420);
-    // text("Help me get back safetly to my moon.. PLEASE!", 50, 440);
-
     buttonStartTheGame(width * 0.3, height * 0.5, 200, 60);
-
 
 }
 
@@ -676,7 +706,10 @@ function gameScreen() {
 
 
     //the hippo that you can move
+    push();
+    hS = 0.2;
     let footPosition = hippo(hippoX, hippoY, 0);
+    pop(); 
 
     //movement for the hippo
     hippoY = hippoY + velocity;
@@ -776,7 +809,9 @@ function draw () {
 
 
     //the diffrent screens
-    if (state === "start") {
+    if (state === "prolog") {
+        prologScreen();
+    } else if (state === "start") {
         startScreen();
     } else if (state === "game") {
         gameScreen();
