@@ -1,15 +1,6 @@
 /* 
 Lunar lander game, made for the course "foundation of programming" at JU.
 
-Needs to include:
-- a start screen
-- the actual game
-- a result screen
-- able to restart the game
-- control the thruster with space , up or down key
-- velocity not linear
-
-
 "The lactoseintolerant hippo, "Gassy Gaston", have just left the
  "Milkyway MilkshakeBar" and needs your help to get home safely. 
  Help him to land smooth and easy on his own moon"
@@ -44,6 +35,28 @@ let moonSize  = 600 * lMS;
 
 let x = 200;
 let y = 200;
+
+let hippoX = 140; 
+let hippoY = 60;
+let moonX = 200;
+let moonY = 370;
+let milkX = 110;
+let milkY = 130;
+let meteorX = 500;
+let meteorY = 0;
+
+let frame = 0;
+
+let speed = 2;
+let direction = 4;
+
+let velocity = 0.6;
+let acceleration = 0.2;
+
+let state = "start";
+
+let win = false;
+
 
 
 //the diffrent objects
@@ -94,7 +107,6 @@ function theLandingMoon(x, y) {
     };
 }
 
-
 function theMilkBar(x, y) {
     //planet cliff
     strokeWeight(1);
@@ -120,7 +132,6 @@ function theMilkBar(x, y) {
 
 
 }
-
 
 function hippo(x, y) {
     push();
@@ -584,10 +595,7 @@ let starX = [];
 let starY = [];
 let starAlpha = [];
 
-
-
-
-
+//(see setup)
 function starNight () {
     
 for (let index in starX) {
@@ -707,8 +715,10 @@ function gameScreen() {
         hippoX = hippoX + speed;
     }
     if (keyIsDown(38)) {
-        velocity = 0;
-        hippoY = hippoY - speed; 
+        velocity = velocity - 0.4;
+       
+
+        
         gas(footPosition.leftFoot.x, footPosition.leftFoot.y);
     }
     
@@ -722,7 +732,7 @@ function resultScreen() {
         fill(0, 255, 0);
         text("YOU WON!", 150, 160);
         fill(255);
-        text("Time: " + Math.floor(frame / 30) + "sek", 150, 200);
+        text("Time: " + Math.floor(frame / 30) + " sec", 150, 200);
         hippoHappy(450, 200);
         
     } else {
@@ -756,37 +766,13 @@ function resultScreen() {
 
 
 
-let hippoX = 140; 
-let hippoY = 60;
-let moonX = 200;
-let moonY = 370;
-let milkX = 110;
-let milkY = 130;
-let meteorX = 500;
-let meteorY = 0;
-
-let frame = 0;
-
-let speed = 2;
-let direction = 4;
-
-let velocity = 0.6;
-let acceleration = 0.2;
-
-let state = "start";
-
-let win = false;
-
-
 function draw () {
     
-
     //detects where the startbutton is with the mouse, to press start and enter game state
     if (mouseIsPressed && mouseX > width * 0.3 && mouseX < (width * 0.3) + 200 && mouseY > height * 0.5 && mouseY < (height * 0.5) + 60) {
 
        state = "game";
     }
-
 
 
     //the diffrent screens
